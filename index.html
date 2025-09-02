@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaurav_Store - Discover products that make life better</title>
+    <meta name="description" content="Curated gadgets, apparel, and home essentials — modern design, everyday prices.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sticky Header with Blur Effect -->
+    <header class="header-main" id="header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <!-- Logo -->
+                <a class="navbar-brand" href="#" aria-label="Remix Store Home">
+                    <i class="ri-shopping-bag-3-line me-2"></i>
+                    <span class="brand-text">GS_Store</span>
+                </a>
+                
+                <!-- Mobile Menu Toggle -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileMenu" aria-controls="mobileMenu" aria-label="Toggle navigation">
+                    <i class="ri-menu-line"></i>
+                </button>
+                
+                <!-- Desktop Navigation -->
+                <div class="navbar-nav-wrapper d-none d-lg-flex">
+                    <!-- Search Bar -->
+                    <div class="search-container">
+                        <div class="input-group">
+                            <input type="search" 
+                                   class="form-control search-input" 
+                                   id="searchInput"
+                                   placeholder="Search products..." 
+                                   aria-label="Search products">
+                            <span class="input-group-text">
+                                <i class="ri-search-line"></i>
+                            </span>
+                        </div>
+                    </div>
+                    
+                    <!-- Category Dropdown -->
+                    <div class="dropdown">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Categories
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="categoryDropdown">
+                            <li><a class="dropdown-item" href="#" data-category="all">All Categories</a></li>
+                            <li><a class="dropdown-item" href="#" data-category="Electronics">Electronics</a></li>
+                            <li><a class="dropdown-item" href="#" data-category="Clothing">Clothing</a></li>
+                            <li><a class="dropdown-item" href="#" data-category="Home">Home</a></li>
+                            <li><a class="dropdown-item" href="#" data-category="Accessories">Accessories</a></li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Cart & Favorites -->
+                    <div class="nav-actions">
+                        <button class="btn btn-icon" id="favoritesBtn" aria-label="View favorites">
+                            <i class="ri-heart-line"></i>
+                            <span class="badge" id="favoritesBadge">0</span>
+                        </button>
+                        <button class="btn btn-icon" id="cartBtn" aria-label="View cart" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                            <i class="ri-shopping-cart-line"></i>
+                            <span class="badge" id="cartBadge">0</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Cart Offcanvas -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="cartOffcanvas" aria-labelledby="cartOffcanvasLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="cartOffcanvasLabel">
+                <i class="ri-shopping-cart-line me-2"></i>Shopping Cart
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="cart-items">
+                <!-- Cart items will be rendered here dynamically -->
+            </div>
+            
+            <!-- Empty Cart State -->
+            <div id="empty-cart" class="text-center py-5">
+                <i class="ri-shopping-cart-line empty-cart-icon"></i>
+                <h4>Your cart is empty</h4>
+                <p class="text-muted">Start shopping to fill your cart!</p>
+                <button class="btn btn-primary" data-bs-dismiss="offcanvas">Continue Shopping</button>
+            </div>
+            
+            <!-- Cart Footer -->
+            <div class="cart-footer" id="cart-footer" style="display: none;">
+                <div class="cart-total mb-3">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <strong class="fs-5">Total: $<span id="cart-total">0.00</span></strong>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg w-100 mb-2" id="checkout-btn">
+                    <i class="ri-secure-payment-line me-2"></i>Proceed to Checkout
+                </button>
+                <button class="btn btn-outline-secondary w-100" id="clear-cart">
+                    <i class="ri-delete-bin-line me-2"></i>Clear Cart
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile Offcanvas Menu -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="mobileMenu" aria-labelledby="mobileMenuLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mobileMenuLabel">Menu</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <!-- Mobile Search -->
+            <div class="search-container mb-4">
+                <div class="input-group">
+                    <input type="search" class="form-control search-input" placeholder="Search products..." aria-label="Search products">
+                    <span class="input-group-text"><i class="ri-search-line"></i></span>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <ul class="nav nav-pills flex-column">
+                <li class="nav-item">
+                    <button class="nav-link" data-bs-toggle="offcanvas" data-bs-target="#mobileFilters">
+                        <i class="ri-filter-line me-2"></i>Filters
+                    </button>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="mobileFavorites">
+                        <i class="ri-heart-line me-2"></i>Favorites <span class="badge ms-auto">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#" id="mobileCart" data-bs-toggle="offcanvas" data-bs-target="#cartOffcanvas">
+                        <i class="ri-shopping-cart-line me-2"></i>Cart <span class="badge ms-auto">0</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Mobile Filters Offcanvas -->
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="mobileFilters" aria-labelledby="mobileFiltersLabel">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="mobileFiltersLabel">Refine results</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div id="mobileFilterContent">
+                <!-- Filters will be duplicated here via JS -->
+            </div>
+        </div>
+    </div>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="container">
+                <div class="row align-items-center min-vh-50">
+                    <div class="col-lg-6">
+                        <h1 class="hero-title">Discover products that make life better.</h1>
+                        <p class="hero-subtitle">Curated gadgets, apparel, and home essentials — modern design, everyday prices.</p>
+                        <button class="btn btn-primary btn-lg btn-hero" onclick="document.getElementById('products').scrollIntoView({behavior: 'smooth'})">
+                            Shop the Collection
+                            <i class="ri-arrow-right-line ms-2"></i>
+                        </button>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="hero-3d-scene">
+                            <div class="hero-card card-1">
+                                <img src="https://m.media-amazon.com/images/I/61XvYOrqVeL.jpg" alt="Featured headphones" loading="lazy">
+                            </div>
+                            <div class="hero-card card-2">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7BqNAqUF1EJy6QlpBu16vflZ2tMvO5ZFDAQ&s" alt="Featured smartwatch" loading="lazy">
+                            </div>
+                            <div class="hero-card card-3">
+                                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSUTqt-JedMm3y5f-_3jpOcqllRdm00_ua2HA&s" alt="Featured speaker" loading="lazy">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Products Section -->
+        <section class="products-section" id="products">
+            <div class="container-fluid">
+                <div class="row">
+                    <!-- Desktop Filters Sidebar -->
+                    <aside class="col-lg-3 d-none d-lg-block">
+                        <div class="filters-sidebar" id="filtersSidebar">
+                            <div class="filters-header">
+                                <h3>Refine results</h3>
+                                <button class="btn btn-sm btn-outline-secondary" id="clearFilters">
+                                    Clear all
+                                </button>
+                            </div>
+                            
+                            <div class="filters-content" id="filtersContent">
+                                <!-- Categories -->
+                                <div class="filter-group">
+                                    <h4 class="filter-title">Categories</h4>
+                                    <div class="filter-options" id="categoryFilters">
+                                        <!-- Generated via JS -->
+                                    </div>
+                                </div>
+
+                                <!-- Price Range -->
+                                <div class="filter-group">
+                                    <h4 class="filter-title">Price Range</h4>
+                                    <div class="price-inputs">
+                                        <div class="input-group input-group-sm mb-2">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="minPrice" placeholder="Min" min="0">
+                                        </div>
+                                        <div class="input-group input-group-sm">
+                                            <span class="input-group-text">$</span>
+                                            <input type="number" class="form-control" id="maxPrice" placeholder="Max" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Rating Filter -->
+                                <div class="filter-group">
+                                    <h4 class="filter-title">Minimum Rating</h4>
+                                    <div class="rating-filters" id="ratingFilters">
+                                        <!-- Generated via JS -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Main Content -->
+                    <div class="col-lg-9">
+                        <!-- Search & Sort Bar -->
+                        <div class="products-toolbar">
+                            <div class="toolbar-left">
+                                <div class="results-summary" id="resultsSummary" aria-live="polite">
+                                    Showing <strong id="resultsCount">12</strong> products
+                                </div>
+                            </div>
+                            <div class="toolbar-right">
+                                <div class="view-toggle d-none d-md-flex">
+                                    <button class="btn btn-icon active" id="gridView" aria-label="Grid view">
+                                        <i class="ri-grid-line"></i>
+                                    </button>
+                                    <button class="btn btn-icon" id="listView" aria-label="List view">
+                                        <i class="ri-list-check"></i>
+                                    </button>
+                                </div>
+                                
+                                <select class="form-select sort-select" id="sortSelect" aria-label="Sort products">
+                                    <option value="featured">Featured</option>
+                                    <option value="price-low">Price: Low to High</option>
+                                    <option value="price-high">Price: High to Low</option>
+                                    <option value="rating">Highest Rated</option>
+                                    <option value="newest">Newest</option>
+                                </select>
+
+                                <button class="btn btn-outline-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#mobileFilters" aria-label="Open filters">
+                                    <i class="ri-filter-line"></i>
+                                    Filters
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Products will be generated via JavaScript -->
+                        </div>
+
+                        <!-- Empty State -->
+                        <div class="empty-state hidden" id="emptyState">
+                            <div class="text-center py-5">
+                                <i class="ri-search-line empty-icon"></i>
+                                <h3>No products found</h3>
+                                <p>No products found — try a different filter or clear search.</p>
+                                <button class="btn btn-primary" id="clearAllFilters">Clear all filters</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Product Detail Modal -->
+    <div class="modal fade" id="productModal" tabindex="-1" aria-labelledby="productModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="productModalLabel">Product Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- Content will be populated via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5>About GS_Store</h5>
+                    <p>Curating the best products that blend modern design with everyday functionality. Quality you can trust, prices you'll love.</p>
+                </div>
+                <div class="col-lg-2 mb-4">
+                    <h5>Quick Links</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" target="_blank">About</a></li>
+                        <li><a href="#" target="_blank">Contact</a></li>
+                        <li><a href="#" target="_blank">Shipping</a></li>
+                        <li><a href="#" target="_blank">Returns</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5>Newsletter</h5>
+                    <p>Subscribe for exclusive offers and new arrivals.</p>
+                    <div class="input-group">
+                        <input type="email" class="form-control" placeholder="Enter your email" aria-label="Newsletter email">
+                        <button class="btn btn-primary" type="button">Subscribe</button>
+                    </div>
+                </div>
+                <div class="col-lg-3 mb-4">
+                    <h5>Follow Us</h5>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook" target="_blank"><i class="ri-facebook-line"></i></a>
+                        <a href="#" aria-label="Twitter" target="_blank"><i class="ri-twitter-line"></i></a>
+                        <a href="#" aria-label="Instagram" target="_blank"><i class="ri-instagram-line"></i></a>
+                        <a href="#" aria-label="LinkedIn" target="_blank"><i class="ri-linkedin-line"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-12 text-center">
+                    <p class="mb-0">&copy; 2025 GS_Store. All rights reserved By Gaurav Shitole.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Custom JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
