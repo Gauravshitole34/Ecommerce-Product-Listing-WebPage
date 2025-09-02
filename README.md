@@ -1,4 +1,4 @@
-# Remix E-Commerce Product Listing Page
+# E-Commerce Product Listing Page
 
 A modern, responsive e-commerce product catalog built with vanilla HTML5, CSS3, and JavaScript ES6, featuring advanced 3D interactions, smooth animations, and comprehensive accessibility features.
 
